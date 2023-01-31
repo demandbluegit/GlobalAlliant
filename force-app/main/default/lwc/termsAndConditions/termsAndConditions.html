@@ -1,0 +1,42 @@
+<template>
+    <lightning-card title="Update Application">
+        <div class="slds-p-around_large terms-page">
+            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                <div class="slds-col slds-size_2-of-2">
+                    <lightning-input type="checkbox" label="I certify that all information is correct" onchange={handleAcceptAllTCChange} checked={acceptAllTC}></lightning-input>
+                </div>
+            </div>
+            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                <div class="slds-col slds-size_1-of-2">
+                    <div class="form-group-item">
+                        <lightning-input type="text" label="Name" onchange={handleNameChange} value={name}></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <div class="form-group-item">
+                        <lightning-input type="text" label="Certifying Individual Name" onchange={handleCertifyingIndividualNameChange} value={certifyingIndividualName}></lightning-input>
+                    </div>
+                </div>                    
+            </div>
+            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                <div class="slds-col slds-size_1-of-2">
+                    <div class="form-group-item">
+                        <lightning-input type="text" label="Certifying Individual Title" onchange={handleCertifyingIndividualTitleChange} value={certifyingIndividualTitle}></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <div class="form-group-item">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="slds-p-top_small">
+                <div class="slds-clearfix">
+                    <div class="slds-float_right">
+                        <lightning-button variant="brand" label="Update" onclick={updateApplication}></lightning-button>
+                    </div>
+                </div>                    
+            </div>
+        </div>
+    </lightning-card>
+</template>

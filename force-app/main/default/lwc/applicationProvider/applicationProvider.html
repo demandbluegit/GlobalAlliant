@@ -1,0 +1,67 @@
+<template>
+<lightning-card title="Application Providers">
+    <h1>Welcome ! The application requires provider roster data from participants, please download the template and upload it using the link below . You could also use the link to the right to enter the data using the web form .</h1>
+    <div class="slds-p-around_large application-provider">
+        <div class="slds-clearfix slds-m-bottom_large">
+            <div class="slds-float_left">
+                <div class="upload-box"><div class="upload-box">
+                            <lightning-button variant="brand" label="Download Template" title="Download Template" onclick={exportDemographicsData}></lightning-button>
+                        <lightning-input label=""  name="file uploader" onchange ={handleFilesChange} type="file" multiple></lightning-input>
+                        <div class="slds-text-body_small slds-text-color_error">{fileName}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="slds-float_right">
+                <lightning-button variant="brand" label="Add Provider" onclick={handleAddProvider} class="slds-m-left_x-small"></lightning-button>
+                <!--<lightning-button variant="brand" label="Download Template" onclick={pdfDownloadLink} class="slds-m-left_x-small"></lightning-button> -->       
+            </div>
+        </div>
+        <template if:true={data}>
+        <div class="slds-table_col-bordered slds-table_bordered slds-scrollable_y tblsection">
+            <lightning-datatable data={data} columns={dataColumns} key-field="Id" onrowaction={handleRowActions}>
+            </lightning-datatable>
+        </div>
+    </template>
+        <!--</template> 
+        <template if:false={applicationProviders.data}>
+            <div class="slds-text-align_center">
+                No Application Providers found.
+            </div>
+        </template> -->
+    </div>
+    <template if:true={modalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container modal-dialog">
+                <header class="slds-modal__header">
+                    <!-- sldsValidatorIgnoreNextLine -->
+                    <lightning-button-icon icon-slds-var-p-around_medium onclick={handleCancel} class="slds-modal__close"></lightning-button-icon>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Practice Provider</h2> 
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-input type="text" label="Entity Id" name="Entity_Id__c" value={newApplicationProvider.Entity_Id__c} onchange={handleChangeEvent} maxlength="9" required></lightning-input>
+                    <lightning-input type="number" label="TIN" name="TIN__c" value={newApplicationProvider.TIN__c} onchange={handleChangeEvent} maxlength="9" required></lightning-input>
+                    <lightning-input type="text" label="NPI" name="NPI__c" value={newApplicationProvider.NPI__c} onchange={handleChangeEvent} maxlength="10" required></lightning-input>
+                    <lightning-combobox label="Specialty" name="Specialty__c" value={newApplicationProvider.Specialty__c} options={specialityOptions} onchange={handleChangeEvent} required></lightning-combobox>
+                    <lightning-input type="text" label="First Name" name="First_Name__c" value={newApplicationProvider.First_Name__c} onchange={handleChangeEvent} required></lightning-input>
+                    <lightning-input type="text" label="Last Name" name="Last_Name__c" value={newApplicationProvider.Last_Name__c} onchange={handleChangeEvent} required></lightning-input>
+                    <lightning-input type="text" label="Provider Professional Degree" name="Provider_Professional_Degree__c" value={newApplicationProvider.Provider_Professional_Degree__c} onchange={handleChangeEvent} required></lightning-input>
+                    <lightning-input type="text" label="Street" name="Address__c" value={newApplicationProvider.Address__c} onchange={handleChangeEvent} required></lightning-input>
+                    <lightning-input type="text" label="City" name="City__c" value={newApplicationProvider.City__c} onchange={handleChangeEvent} required></lightning-input>
+                    <lightning-input type="text" label="County" name="County__c" value={newApplicationProvider.County__c} onchange={handleChangeEvent} required></lightning-input>
+                    <lightning-combobox  label="State" name="State__c" value={newApplicationProvider.State__c}  options={stateOptions} onchange={handleChangeEvent} required></lightning-combobox>
+                    <lightning-input type="number" label="Zip Code" name="Zip_Code__c" value={newApplicationProvider.Zip_Code__c} onchange={handleChangeEvent} maxlength="5" required></lightning-input>
+                    <lightning-input type="number" class="validate" label="Phone Number" name="Phone_Number__c" value={newApplicationProvider.Phone_Number__c} onchange={handleChangeEvent}  required></lightning-input>
+                    <lightning-input type="email" label="Email"  name="Email__c" value={newApplicationProvider.Email__c} onchange={handleChangeEvent} class="validate" pattern="[A-Za-z0-9._-]+@[a-z0-9-]+.[a-z]{2,}$" message-when-pattern-mismatch="Please enter a valid email" required></lightning-input>
+                    </div>
+                    <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" onclick={handleCancel} class="slds-m-left_x-small"></lightning-button>
+                    <lightning-button label="Save" variant="brand" onclick={createApplicationProvider} class="slds-m-left_x-small"></lightning-button>
+                    </footer>
+                    </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                    </template>
+                    </lightning-card>
+</template>

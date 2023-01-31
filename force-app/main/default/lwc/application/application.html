@@ -1,0 +1,286 @@
+<template>
+        <lightning-card>
+            <lightning-messages></lightning-messages>
+    
+            <!-- <div class="slds-p-around_medium">
+                <lightning-input type="text" label="Taxpayer Identifier Number (TIN)" field-name="Taxpayer_Identifier_Number_TIN__c" value={application.Taxpayer_Identifier_Number_TIN__c} onchange={handleChange}> </lightning-input>
+                <lightning-input type="text" label="Practice Site Name" field-name="Practice_Site_Name__c" value={application.Practice_Site_Name__c} onchange={handleChange}> </lightning-input>
+            </div> -->
+            <div class="slds-p-around_large">
+                
+                <lightning-record-edit-form   object-api-name="Application__c" onsuccess={handleSubmit}>
+                    
+                    <template if:true={showMainForm}>
+                        <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="form-group-item">
+                                    <lightning-input-field field-name="Taxpayer_Identifier_Number_TIN__c" value={application.Taxpayer_Identifier_Number_TIN__c} onchange={handleChange} required></lightning-input-field>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="form-group-item">
+                                    <lightning-input-field field-name="Practice_Site_Name__c" value={application.Practice_Site_Name__c} onchange={handleChange}></lightning-input-field> 
+                                </div>
+                            </div>                    
+                        </div>          
+                        <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="form-group-item">
+                                    <lightning-input-field field-name="Practice_DBA_Name__c" value={application.Practice_DBA_Name__c} onchange={handleChange}></lightning-input-field>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="form-group-item">
+                                    <lightning-input-field field-name="Address__c" value={application.Address__c} onchange={handleChange} required></lightning-input-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="form-group-item">
+                                    <lightning-input-field field-name="City__c" value={application.City__c} onchange={handleChange} required></lightning-input-field>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="form-group-item">
+                                    <lightning-input-field field-name="State__c" value={application.State__c} onchange={handleChange} required></lightning-input-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="form-group-item">
+                                    <lightning-input-field field-name="County__c" value={application.County__c} onchange={handleChange} required></lightning-input-field>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="form-group-item">
+                                    <lightning-input-field field-name="Zip_Code__c" value={application.Zip_Code__c} onchange={handleChange} required></lightning-input-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="form-group-item">
+                                    <lightning-input-field field-name="Phone_Number__c" value={application.Phone_Number__c} onchange={handleChange} required></lightning-input-field>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="form-group-item">
+                                    <lightning-input-field field-name="Fax_Number__c" value={application.Fax_Number__c} onchange={handleChange} required></lightning-input-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                            <div class="slds-col slds-size_2-of-2">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label form-label" for="isOwnedByLargerOrg">Is your practice owned and operated by a larger health care organization or parent organization, such as a health system or a group practice?</label>
+                                    <div class="slds-form-element__control inline-optionbtn">
+                                        <lightning-radio-group name="isOwnedByLargerOrg" options={options} value={showOrganizationInfo} onchange={handleOwnershipChange}></lightning-radio-group>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <template if:false={showOrganizationInfo}>
+                            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                                <div class="slds-col slds-size_2-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Independent_Practice_Ownership_Type__c" value={application.Independent_Practice_Ownership_Type__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        
+                        <template if:true={selectedOthers}>
+                            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Independent_Practice_Ownership_Other__c" value={application.Independent_Practice_Ownership_Other__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+                        <template if:true={showOrganizationInfoOnNext}>
+                            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Organization_Name__c" value={application.Organization_Name__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Organization_Address__c" value={application.Organization_Address__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Organization_City__c" value={application.Organization_City__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Organization_State__c" value={application.Organization_State__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Organization_Zip_Code__c" value={application.Organization_Zip_Code__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Organization_Country__c" value={application.Organization_Country__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Organization_Primary_Contact_Name__c" value={application.Organization_Primary_Contact_Name__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Organization_Primary_Contact_Title__c" value={application.Organization_Primary_Contact_Title__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Organization_Primary_Contact_Phone__c" value={application.Organization_Primary_Contact_Phone__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Organization_Primary_Contact_Email__c" value={application.Organization_Primary_Contact_Email__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                                <div class="slds-col slds-size_2-of-2">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label form-label">Does your organization include any of the following providers or facilities? Select all that apply.</label>
+                                        <div class="form-group-item">
+                                            <lightning-input-field field-name="Providers_and_facilities__c" value={application.Providers_and_facilities__c} onchange={handleChange} required></lightning-input-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <template if:true={requiredFieldsMissing}>
+                                <div class="slds-p-top_large">
+                                    <div class="slds-clearfix">
+                                        <div class="slds-float_left">
+                                            <p style="color:red">All fields are required.</p>
+                                        </div>
+                                    </div>                    
+                                </div>
+                            </template>
+                                <div class="slds-p-top_large">
+                                    <div class="slds-clearfix">
+                                        <div class="slds-float_right">
+                                            <lightning-button variant="brand" label="Next" onclick={handleOwnerSubmit}></lightning-button>
+                                        </div>
+                                        <div class="slds-float_left">
+                                            <lightning-button variant="brand" label="Back" onclick={handleOwnerSubmitBack}></lightning-button>
+                                        </div>
+                                    </div>                    
+                                </div>
+                            </template> 
+                        <template if:true={showMainForm}>
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                </div>
+                            </div>
+                            
+                            <template if:true={requiredFieldsMissing}>
+                                <div class="slds-p-top_large">
+                                    <div class="slds-clearfix">
+                                        <div class="slds-float_left">
+                                            <p style="color:red">All fields are required.</p>
+                                        </div>
+                                    </div>                    
+                                </div>
+                            </template>
+                            <div class="slds-p-top_large">
+                                <div class="slds-clearfix">
+                                    <div class="slds-float_right">
+                                        <lightning-button variant="brand" label="Next" type="submit" onclick={handleSubmit}></lightning-button>
+                                    </div>
+                                </div>                    
+                            </div>
+                        </template>           
+                        
+                    
+                    <template if:true={showTermsAndCondSection}>
+                        <div>
+                            <h2><b>Certification Statement</b></h2>
+                        </div>
+                        <div class="slds-p-around_large terms-page">
+                            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                                <div class="slds-col slds-size_2-of-2">
+                                    <div class="slds-checkbox">
+                                    <abbr class="slds-required" title="required">*</abbr>
+                                    <input type="checkbox" name="Accept_all_TC__c" id="Accept-all-TC--c" value="true" onchange={handleTermsChange}/>
+                                    <label class="slds-checkbox__label" for="Accept-all-TC--c">
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-form-element__label"> I certify that all information and statements provided in this application are true, complete, and accurate to the best of my knowledge,Information and belief. I certify that I am qualified to make the assertions contained herein as an agent of the applicant. If I become aware that any information in this application is not true, accurate, or complete. I will notify CMS of this fact immediately.</span>
+                                    </label>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Certifying_Individual_Name__c" value={application.Certifying_Individual_Name__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>                    
+                            </div>
+                            <div class="slds-grid slds-gutters slds-p-bottom_x-small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="form-group-item">
+                                        <lightning-input-field field-name="Certifying_Individual_Title__c" value={application.Certifying_Individual_Title__c} onchange={handleChange} required></lightning-input-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <template if:true={requiredFieldsMissing}>
+                                <div class="slds-p-top_large">
+                                    <div class="slds-clearfix">
+                                        <div class="slds-float_left">
+                                            <p style="color:red">All fields are required.</p>
+                                        </div>
+                                    </div>                    
+                                </div>
+                            </template>
+                            <div class="slds-p-top_small">
+                                <div class="slds-clearfix">
+                                    <div class="slds-float_right">
+                                        <lightning-button variant="brand" label="Submit" onclick={handleTermsSubmit}></lightning-button>
+                                    </div>
+                                    <div class="slds-float_left">
+                                        <lightning-button variant="brand" label="Back" onclick={handleBack}></lightning-button>
+                                    </div>
+                                </div>                    
+                            </div>
+                        </div>
+                    </template>
+                    <template if:true={showThankYouMessage}>
+                        <div class="slds-p-top_large">
+                            <div class="slds-clearfix">
+                        <h2>
+                            Thank you for submitting your participant application. CMS team will review the details and make a decision on your application. If your application is approved, you will be receiving a Participant Agreement via Docusign for signature.
+                        </h2>
+                            </div>
+                        </div>
+                    </template>                
+                </lightning-record-edit-form>
+            </div>
+        </lightning-card>
+    
+</template>

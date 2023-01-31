@@ -1,0 +1,58 @@
+<template>
+<lightning-progress-indicator current-step={currentStep} type="path" variant="base">
+    <lightning-progress-step label="Practice Participants"  value="1" onclick={handleOnStepClick}></lightning-progress-step>
+    <lightning-progress-step label="Terms And Conditions"   value="2" onclick={handleOnStepClick}></lightning-progress-step>
+    <lightning-progress-step label="Participant Agreement"  value="3" onclick={handleOnStepClick}></lightning-progress-step>
+    <lightning-progress-step label="Provider"               value="4" onclick={handleOnStepClick}></lightning-progress-step>
+    <lightning-progress-step label="Upload Documents"       value="5" onclick={handleOnStepClick}></lightning-progress-step>
+</lightning-progress-indicator>
+    <br>
+<template if:true={isStepOne}>
+    <div>
+        <c-application></c-application>
+    </div>
+</template>
+<template if:true={isStepTwo}>
+    <div>
+        <c-terms-and-conditions></c-terms-and-conditions>
+    </div>
+</template>
+
+<template if:true={isStepThree}>
+    <div>
+        <c-participant-agreement></c-participant-agreement>
+    </div>
+</template>
+
+<template if:true={isStepFour}>
+    <div>
+        <c-application-provider></c-application-provider>
+    </div>
+</template>
+
+<template if:true={isStepFive}>
+    <div>
+        <c-upload-documents-to-amazon-s3></c-upload-documents-to-amazon-s3>
+    </div>
+</template>
+    
+
+    <div class="slds-var-p-top_large">
+        <div class="slds-clearfix">
+            <div class="slds-float_right">
+                <template if:true={isEnablePrev}>
+                    <lightning-button variant="brand" label="Back" onclick={handlePrev}></lightning-button>
+                </template>
+                <span>  </span>
+                <template if:true={isEnableNext}>
+                    <lightning-button class="slds-m-right_small"  label="Next" variant="brand" onclick={handleNext}></lightning-button>
+                </template>
+                <span>  </span>
+                <template if:true={isEnableFinish}>
+                    <lightning-button label="Finish" variant="brand" onclick={handleFinish}></lightning-button>
+                </template>
+            </div>
+        </div>
+    </div>
+
+</template>
